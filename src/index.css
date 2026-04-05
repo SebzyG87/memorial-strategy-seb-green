@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Seb Green Funeral Services - Respectful Soft Light Mode Design System */
 
 @layer base {
@@ -114,4 +118,20 @@
   .gold-border {
     @apply border border-secondary/40;
   }
+}
+
+/* Mobile Polish - Touch & Press States */
+button, [role="button"], a {
+  touch-action: manipulation;
+}
+
+button:active, [role="button"]:active {
+  transform: scale(0.97);
+  transition: transform 0.1s ease;
+}
+
+/* Focus visible rings for accessibility */
+:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
 }

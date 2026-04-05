@@ -41,55 +41,63 @@ const Navigation = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 mx-4">
-          <div className="glass-card rounded-2xl p-6 space-y-4">
-            <h2 className="md:hidden text-lg font-serif font-semibold text-primary mb-4">
-              Memorial Strategy with Seb Green
-            </h2>
-            <button
-              onClick={() => scrollToSection("approach")}
-              className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
-            >
-              Our Approach
-            </button>
-            <button
-              onClick={() => scrollToSection("services")}
-              className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
-            >
-              Service Checklist
-            </button>
-            <button
-              onClick={() => scrollToSection("pricing")}
-              className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
-            >
-              Service Options
-            </button>
-            <button
-              onClick={() => scrollToSection("examples")}
-              className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
-            >
-              Service Examples
-            </button>
-            <button
-              onClick={() => scrollToSection("tools")}
-              className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
-            >
-              Featured Tools
-            </button>
-            <button
-              onClick={() => scrollToSection("action")}
-              className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
-            >
-              Contact
-            </button>
-            <a
-              href="/privacy"
-              className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
-            >
-              Privacy Policy
-            </a>
+        <>
+          {/* Transparent backdrop — click outside to close */}
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setIsMenuOpen(false)}
+          />
+          {/* Menu panel */}
+          <div className="absolute top-full left-0 right-0 mt-2 mx-4 z-50">
+            <div className="glass-card rounded-2xl p-6 space-y-4">
+              <h2 className="md:hidden text-lg font-serif font-semibold text-primary mb-4">
+                Memorial Strategy with Seb Green
+              </h2>
+              <button
+                onClick={() => scrollToSection("approach")}
+                className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
+              >
+                Our Approach
+              </button>
+              <button
+                onClick={() => scrollToSection("services")}
+                className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
+              >
+                Service Checklist
+              </button>
+              <button
+                onClick={() => scrollToSection("pricing")}
+                className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
+              >
+                Service Options
+              </button>
+              <button
+                onClick={() => scrollToSection("examples")}
+                className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
+              >
+                Service Examples
+              </button>
+              <button
+                onClick={() => scrollToSection("tools")}
+                className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
+              >
+                Featured Tools
+              </button>
+              <button
+                onClick={() => scrollToSection("action")}
+                className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
+              >
+                Contact
+              </button>
+              <a
+                href="/privacy"
+                className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
+              >
+                Privacy Policy
+              </a>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </nav>
   );
