@@ -1,0 +1,86 @@
+{
+  "siteUrl": "https://memorial-strategy.withsebgreen.com",
+  "routes": [
+    {
+      "path": "/",
+      "title": "Memorial Live Streaming & Tributes in London | Seb Green",
+      "description": "Calm, respectful funeral live streaming, photography and tribute films in London, coordinated with your venue. By Seb Green, from £200."
+    },
+    {
+      "path": "/privacy",
+      "title": "Privacy Policy | Memorial Strategy with Seb Green, London",
+      "description": "How Memorial Strategy with Seb Green in London collects, uses and protects your personal information."
+    },
+    {
+      "path": "/terms",
+      "description": "The terms that apply when you book services with Memorial Strategy with Seb Green in London.",
+      "title": "Terms of Service | Memorial Strategy with Seb Green, London"
+    }
+  ],
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Memorial Strategy with Seb Green",
+    "url": "https://memorial-strategy.withsebgreen.com/",
+    "description": "Calm, respectful funeral live streaming, photography and tribute films in London, coordinated with your venue. By Seb Green, from £200.",
+    "telephone": "+447903325057",
+    "email": "workwithsebgreen@gmail.com",
+    "areaServed": {
+      "@type": "City",
+      "name": "London"
+    },
+    "founder": {
+      "@type": "Person",
+      "name": "Seb Green"
+    },
+    "parentOrganization": {
+      "@type": "Organization",
+      "name": "With Seb Green",
+      "url": "https://work.withsebgreen.com/"
+    },
+    "image": "https://memorial-strategy.withsebgreen.com/og-image.png",
+    "sameAs": [
+      "https://www.instagram.com/_sebgreen_/"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Memorial Strategy with Seb Green services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Memorial live stream (The Broadcast)"
+          },
+          "description": "From £250",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": 250,
+            "priceCurrency": "GBP"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "The Visual Tribute"
+          },
+          "description": "From £200",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": 200,
+            "priceCurrency": "GBP"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Full concierge coordination"
+          },
+          "description": "Bespoke pricing"
+        }
+      ]
+    }
+  }
+}
