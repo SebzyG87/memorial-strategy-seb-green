@@ -22,7 +22,7 @@ const FeaturedTools = () => {
             </p>
             <div className="w-full rounded-xl overflow-hidden border border-border" style={{ minHeight: 500 }}>
               <iframe
-                src="https://time-connect-invites.lovable.app"
+                src="https://event-helper-kit.withsebgreen.com"
                 title="Timezone Invites Tool"
                 className="w-full border-0"
                 style={{ height: 500 }}

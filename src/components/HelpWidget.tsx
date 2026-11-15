@@ -41,30 +41,7 @@ export default function HelpWidget() {
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setLoading(true);
 
-    // Try Ollama first
-    try {
-      const response = await Promise.race([
-        fetch('http://localhost:11434/api/generate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: 'qwen2.5',
-            prompt: userMessage,
-            stream: false
-          })
-        }),
-        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000))
-      ]) as Response;
-
-      const data = await response.json();
-      setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
-      setLoading(false);
-      return;
-    } catch {
-      // Ollama unavailable — search articles locally
-    }
-
-    // Smart offline search through help articles
+    // Search the local help library without sending visitor text to a third party.
     const query = userMessage.toLowerCase();
     const scored = helpArticles.map(article => {
       const queryWords = query.split(' ').filter((w: string) => w.length > 3);
@@ -97,6 +74,7 @@ export default function HelpWidget() {
     <>
       <motion.button
         data-help-button
+        aria-label={isOpen ? 'Close help' : 'Open help'}
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 left-6 z-50 w-12 h-12 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500 shadow-lg flex items-center justify-center text-white hover:scale-110 transition-transform"
         whileHover={{ scale: 1.1 }}
@@ -113,7 +91,7 @@ export default function HelpWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-20 left-6 w-[350px] h-[500px] max-h-[65vh] bg-background/95 backdrop-blur-xl border border-teal-500/20 rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col"
+            className="fixed bottom-20 left-4 right-4 w-auto max-w-[350px] sm:left-6 sm:right-auto h-[500px] max-h-[65vh] bg-background/95 backdrop-blur-xl border border-teal-500/20 rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col"
           >
             <div className="flex border-b border-border">
               <button

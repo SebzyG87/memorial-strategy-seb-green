@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+footer a {
+  display: inline-flex;
+  min-height: 44px;
+  min-width: 44px;
+  align-items: center;
+  justify-content: center;
+}
+
+a[href="/"] {
+  min-height: 44px;
+  align-items: center;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -30,7 +43,7 @@ html {
     --secondary-foreground: 215 25% 20%;
 
     --muted: 40 20% 94%;
-    --muted-foreground: 215 16% 47%;
+    --muted-foreground: 215 16% 42%;
 
     /* Accent - Soft Gold */
     --accent: 43 72% 52%;

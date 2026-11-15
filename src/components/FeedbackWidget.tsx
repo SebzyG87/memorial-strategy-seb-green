@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X, Star, Send } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
 
+import { HONEYPOT_FIELD, submitLead } from "@/lib/submitLead";
 export default function FeedbackWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(0);
@@ -10,6 +10,8 @@ export default function FeedbackWidget() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [honeypot, setHoneypot] = useState('');
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,34 +30,38 @@ export default function FeedbackWidget() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-
+    setFailed(false);
     try {
-      await supabase.from('feedback').insert({
-        page_url: window.location.href,
-        rating,
-        message,
-        user_email: email || null,
-        app_name: 'memorial-strategy',
-      });
-    } catch (error) {
-      // Silently fail - Supabase may not be configured
+      await submitLead(
+          {
+            name: "Website feedback",
+            email,
+            service: `Feedback, rated ${rating}/5`,
+            message: message.trim() || "(no comment)",
+          },
+          "Memorial Strategy",
+          { honeypot, allowEmptyEmail: true },
+      );
+      setSuccess(true);
+      setTimeout(() => {
+        setIsOpen(false);
+        setSuccess(false);
+        setRating(0);
+        setMessage('');
+        setEmail('');
+      }, 2000);
+    } catch {
+      setFailed(true);
+    } finally {
+      setLoading(false);
     }
-
-    setSuccess(true);
-    setLoading(false);
-    setTimeout(() => {
-      setIsOpen(false);
-      setSuccess(false);
-      setRating(0);
-      setMessage('');
-      setEmail('');
-    }, 2000);
   }
 
   return (
     <>
       <motion.button
         data-feedback-button
+        aria-label={isOpen ? 'Close feedback' : 'Open feedback'}
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500 shadow-lg flex items-center justify-center text-white hover:scale-110 transition-transform"
         whileHover={{ scale: 1.1 }}
@@ -72,7 +78,7 @@ export default function FeedbackWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-20 right-6 w-[350px] bg-background/95 backdrop-blur-xl border border-teal-500/20 rounded-2xl shadow-2xl z-50 overflow-hidden"
+            className="fixed bottom-20 left-4 right-4 w-auto max-w-[350px] sm:left-auto sm:right-6 bg-background/95 backdrop-blur-xl border border-teal-500/20 rounded-2xl shadow-2xl z-50 overflow-hidden"
           >
             {success ? (
               <div className="p-8 text-center">
@@ -85,7 +91,7 @@ export default function FeedbackWidget() {
               <form onSubmit={handleSubmit} className="p-4 space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold">Share Feedback</h3>
-                  <button type="button" onClick={() => setIsOpen(false)} className="text-muted-foreground hover:text-foreground">
+                  <button type="button" aria-label="Close feedback" onClick={() => setIsOpen(false)} className="text-muted-foreground hover:text-foreground">
                     <X size={18} />
                   </button>
                 </div>
@@ -97,6 +103,7 @@ export default function FeedbackWidget() {
                       <button
                         key={star}
                         type="button"
+                        aria-label={`Rate ${star} out of 5`}
                         onClick={() => setRating(star)}
                         className="focus:outline-none"
                       >
@@ -130,6 +137,30 @@ export default function FeedbackWidget() {
                     className="w-full p-3 bg-muted/50 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/50"
                   />
                 </div>
+
+                {/* Anti-spam: hidden from people, bots fill it in. */}
+
+                <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+
+                  <label>
+
+                    Leave this field empty
+
+                    <input type="text" name={HONEYPOT_FIELD} tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
+
+                  </label>
+
+                </div>
+
+                {failed && (
+
+                  <p role="alert" className="text-sm text-destructive">
+
+                    Sorry, your feedback was not sent. Please email workwithsebgreen@gmail.com.
+
+                  </p>
+
+                )}
 
                 <button
                   type="submit"
