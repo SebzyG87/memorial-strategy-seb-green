@@ -44,9 +44,7 @@ const StrategicApproach = () => {
               key={step.number}
               className="glass-card rounded-2xl p-6 text-center relative"
             >
-              <span className="text-4xl font-serif font-semibold text-secondary/60 mb-3 block">
-                {step.number}
-              </span>
+              <span aria-hidden="true" data-n={step.number} className="text-4xl font-serif font-semibold text-secondary/60 mb-3 block before:content-[attr(data-n)]" />
               <h3 className="text-lg font-serif font-semibold text-primary mb-3">
                 {step.title}
               </h3>

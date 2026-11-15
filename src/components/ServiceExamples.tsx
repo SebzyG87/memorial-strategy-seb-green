@@ -16,7 +16,8 @@ const ServiceExamples = () => {
           <div className="space-y-4">
             <div className="aspect-video rounded-2xl overflow-hidden border border-secondary/20">
               <iframe
-                src="https://www.youtube.com/embed/Qc75LTEghJw"
+                loading="lazy"
+                src="https://www.youtube-nocookie.com/embed/Qc75LTEghJw"
                 title="Memorial Video Example"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -24,7 +25,7 @@ const ServiceExamples = () => {
               />
             </div>
             <h3 className="font-serif text-lg text-primary text-center">
-              Memorial Video
+              Memorial Video Example
             </h3>
           </div>
 
@@ -32,7 +33,8 @@ const ServiceExamples = () => {
           <div className="space-y-4">
             <div className="aspect-video rounded-2xl overflow-hidden border border-secondary/20">
               <iframe
-                src="https://www.youtube.com/embed/jovkBWz61wk"
+                loading="lazy"
+                src="https://www.youtube-nocookie.com/embed/jovkBWz61wk"
                 title="Live Stream Example"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
