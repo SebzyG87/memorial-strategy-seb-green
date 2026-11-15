@@ -1,5 +1,6 @@
 import { Radio, Camera, Crown } from "lucide-react";
 
+import { PayButton, ServiceTag } from "@/components/PayButton";
 const tiers = [
   {
     icon: Radio,
@@ -42,7 +43,7 @@ const tiers = [
   },
 ];
 
-const CALENDLY_URL = "https://calendly.com/workwithsebgreen/consultation";
+const CALENDLY_URL = "https://calendly.com/workwithsebgreen";
 
 const PricingSection = () => {
   return (
@@ -107,6 +108,8 @@ const PricingSection = () => {
               >
                 Discuss Your Needs
               </a>
+              <ServiceTag title={tier.name} />
+              <PayButton title={tier.name} />
             </div>
           ))}
         </div>

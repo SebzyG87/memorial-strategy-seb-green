@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Phone, Instagram, Send } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, submitLead, HONEYPOT_FIELD } from "@/lib/submitLead";
 
-const CALENDLY_URL = "https://calendly.com/workwithsebgreen/consultation";
+const CALENDLY_URL = "https://calendly.com/workwithsebgreen";
 
 const ActionZone = () => {
+  const [honeypot, setHoneypot] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,21 +22,20 @@ const ActionZone = () => {
     setError(null);
 
     try {
-      const { error: insertError } = await supabase
-        .from("enquiries")
-        .insert({
+      await submitLead(
+        {
           name: formData.name.trim(),
           email: formData.email.trim(),
-          subject: formData.subject.trim(),
+          service: formData.subject.trim(),
           message: formData.message.trim(),
-          source: "memorialplanning.withsebgreen.co.uk",
-        });
-
-      if (insertError) throw insertError;
+        },
+        "Memorial Strategy",
+        { honeypot },
+      );
       setSubmitted(true);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Enquiry submission error:", err);
-      setError("We couldn't send your enquiry just now. Please try calling or emailing us directly.");
+      setError(`Sorry, your message was not sent. Please email ${CONTACT_EMAIL} or call ${CONTACT_PHONE_DISPLAY}.`);
     } finally {
       setSubmitting(false);
     }
@@ -66,6 +66,13 @@ const ActionZone = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Anti-spam: hidden from people, bots fill it in. */}
+                <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+                  <label>
+                    Leave this field empty
+                    <input type="text" name={HONEYPOT_FIELD} tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
+                  </label>
+                </div>
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-primary mb-1.5">
                     Name
@@ -161,7 +168,7 @@ const ActionZone = () => {
             {/* Contact Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="tel:+447900332505"
+                href="tel:+447903325057"
                 className="flex items-center justify-center gap-3 pill-button bg-primary text-primary-foreground hover:bg-primary/90 font-medium"
               >
                 <Phone className="w-5 h-5" strokeWidth={1.5} />

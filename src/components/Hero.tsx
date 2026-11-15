@@ -1,4 +1,4 @@
-const CALENDLY_URL = "https://calendly.com/workwithsebgreen/consultation";
+const CALENDLY_URL = "https://calendly.com/workwithsebgreen";
 
 const Hero = () => {
   return (
@@ -8,7 +8,7 @@ const Hero = () => {
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80')",
+            "url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1400&q=72&auto=format&fit=crop')",
         }}
       >
         {/* Warm cream overlay */}
